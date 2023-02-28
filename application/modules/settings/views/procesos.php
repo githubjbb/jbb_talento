@@ -113,6 +113,7 @@ function deseleccionar_todo(){
 						<tbody>							
 						<?php
 							foreach ($infoProcesos as $lista):
+								//pr($lista);
 								echo '<tr>';
                                 echo '<td class="text-center">' . $lista['numero_proceso'] . '</td>';
                                 echo '<td class="text-center">' . $lista['tipo_proceso'] . '</td>';

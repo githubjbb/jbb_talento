@@ -364,9 +364,9 @@ class Settings extends CI_Controller {
 	public function procesos($state)
 	{
 			$data['state'] = $state;
-
 			$arrParam = array('estadoProceso' => $state);
-			$data['infoProcesos'] = $this->general_model->get_procesos_info($arrParam); 
+			$data['infoProcesos'] = $this->general_model->get_procesos_info($arrParam);
+			//pr($data['infoProcesos']);
 			$data["view"] = 'procesos';
 			$this->load->view("layout_calendar", $data);
 	}
@@ -391,7 +391,7 @@ class Settings extends CI_Controller {
 
 			$arrParam = array(
 				"table" => "param_tipo_proceso",
-				"order" => "tipo_proceso",
+				"order" => "id_tipo_proceso",
 				"id" => "x"
 			);
 			$data['tipoProceso'] = $this->general_model->get_basic_search($arrParam);

@@ -22,6 +22,7 @@ class Reportes extends CI_Controller {
 				'estadoCandidato' => 1
 			);
 			$infoCandidatos = $this->reportes_model->get_candidatos_info($arrParam);
+			//pr($infoCandidatos); exit;
 
 			// Create new PHPExcel object	
 			$objPHPExcel = new PHPExcel();
@@ -38,65 +39,53 @@ class Reportes extends CI_Controller {
 			// Create a first sheet
 			$objPHPExcel->setActiveSheetIndex(0);
 						
-			$objPHPExcel->getActiveSheet()->setCellValue('A2', 'DEPENDENCIA')
+			$objPHPExcel->getActiveSheet()
+										->setCellValue('A2', 'DEPENDENCIA')
 										->setCellValue('B2', 'PROCESO')
 										->setCellValue('C2', 'NOMBRES')
 										->setCellValue('D2', 'DOCUMENTO')
 										->setCellValue('E2', 'EDAD')
 										->setCellValue('F2', 'Profesión')
 										->setCellValue('G2', 'Grupo')
-										->setCellValue('H2', 'Asertividad')
-										->setCellValue('I2', 'Comunicación')
-										->setCellValue('J2', 'Autoestima')
-										->setCellValue('K2', 'Toma Decisión')
-										->setCellValue('L2', 'LOGRO')
-										->setCellValue('M2', 'PODER')
-										->setCellValue('N2', 'AFILIACION')
-										->setCellValue('O2', 'AUTO REALIZACION')
-										->setCellValue('P2', 'RECONOCIMIENTO')
-										->setCellValue('Q2', 'DEDICCACION AL TRABAJO')
-										->setCellValue('R2', 'ACEPTACION DE LA AUTORIDAD')
-										->setCellValue('S2', 'ACEPTACION A NORMAS Y VALORES')
-										->setCellValue('T2', 'REQUISICION')
-										->setCellValue('U2', 'EXPECTACION')
-										->setCellValue('V2', 'SUPERVISION')
-										->setCellValue('W2', 'GRUPO DE TRABAJO')
-										->setCellValue('X2', 'CONTENIDO DEL TRABAJO')
-										->setCellValue('Y2', 'SALARIO')
-										->setCellValue('Z2', 'PROMOCION')
+										->setCellValue('H2', 'Experiencia Profesional')
+										->setCellValue('I2', 'Estudios Adicionales')
+										->setCellValue('J2', 'Prueba Psicotécnica')
+										->setCellValue('K2', 'Entrevista')
+										->setCellValue('L2', 'Criterio Diferencial/Inclusión')
+										->setCellValue('M2', 'Criterio Dif. Desarrollo Objetivo')
+										->setCellValue('N2', 'Puntaje Total')
+										->setCellValue('O2', '% Total')
 										;
 										
 			$j=3;
 
 			if($infoCandidatos){
 				foreach ($infoCandidatos as $info):
-						$objPHPExcel->getActiveSheet()->setCellValue('A'.$j, $info['dependencia'])
-													  ->setCellValue('B'.$j, $info['numero_proceso'])
-													  ->setCellValue('C'.$j, $info['nombres'])
-													  ->setCellValue('D'.$j, $info['numero_identificacion'])
-													  ->setCellValue('E'.$j, $info['edad'])
-													  ->setCellValue('F'.$j, $info['profesion'])
-													  ->setCellValue('G'.$j, $info['tipo_proceso'])
-													  ->setCellValue('H'.$j, $info['ASE'])
-													  ->setCellValue('I'.$j, $info['COM'])
-													  ->setCellValue('J'.$j, $info['AUT'])
-													  ->setCellValue('K'.$j, $info['TOM'])
-													  ->setCellValue('L'.$j, $info['LOG'])
-													  ->setCellValue('M'.$j, $info['DT'])
-													  ->setCellValue('N'.$j, $info['SUP'])
-													  ->setCellValue('O'.$j, $info['POD'])
-													  ->setCellValue('P'.$j, $info['AA'])
-													  ->setCellValue('Q'.$j, $info['GT'])
-													  ->setCellValue('R'.$j, $info['AFI'])
-													  ->setCellValue('S'.$j, $info['ANV'])
-													  ->setCellValue('T'.$j, $info['CT'])
-													  ->setCellValue('U'.$j, $info['A-R'])
-													  ->setCellValue('V'.$j, $info['REQ'])
-													  ->setCellValue('W'.$j, $info['SAL'])
-													  ->setCellValue('X'.$j, $info['REC'])
-													  ->setCellValue('Y'.$j, $info['EXP'])
-													  ->setCellValue('Z'.$j, $info['PRO']);
-						$j++;
+
+					$puntajeTotal = $info['puntaje_experiencia'] + $info['puntaje_adicionales'] + $info['resultado_prueba_psicotecnica'] + $info['resultado_entrevista'] + $info['criterio_etnias'] + $info['criterio_desarrollo'];
+                    $porcetajeExperiencia = $info['puntaje_experiencia'] * 20 / 70;
+                    $porcentajePsicotecnica = $info['resultado_prueba_psicotecnica'] * 20 / 90;
+                    $porcentajeEntrevista = $info['resultado_entrevista'] * 30 / 80;
+                    $porcentajeTotal = $porcetajeExperiencia + $info['puntaje_adicionales'] + $porcentajePsicotecnica + $porcentajeEntrevista + $info['criterio_etnias'] + $info['criterio_desarrollo'];
+
+					$objPHPExcel->getActiveSheet()
+									->setCellValue('A'.$j, $info['dependencia'])
+									->setCellValue('B'.$j, $info['numero_proceso'])
+									->setCellValue('C'.$j, $info['nombres'])
+									->setCellValue('D'.$j, $info['numero_identificacion'])
+									->setCellValue('E'.$j, $info['edad'])
+									->setCellValue('F'.$j, $info['profesion'])
+									->setCellValue('G'.$j, $info['tipo_proceso'])
+									->setCellValue('H'.$j, number_format($info['puntaje_experiencia'],1))
+									->setCellValue('I'.$j, number_format($info['puntaje_adicionales'],1))
+									->setCellValue('J'.$j, number_format($info['resultado_prueba_psicotecnica'],1))
+									->setCellValue('K'.$j, number_format($info['resultado_entrevista'],1))
+									->setCellValue('L'.$j, number_format($info['criterio_etnias'],1))
+									->setCellValue('M'.$j, number_format($info['criterio_desarrollo'],1))
+									->setCellValue('N'.$j, number_format($puntajeTotal,2))
+									->setCellValue('O'.$j, number_format($porcentajeTotal,1))
+									;
+					$j++;
 				endforeach;
 			}
 
@@ -116,17 +105,6 @@ class Reportes extends CI_Controller {
 			$objPHPExcel->getActiveSheet()->getColumnDimension('M')->setWidth(18);
 			$objPHPExcel->getActiveSheet()->getColumnDimension('N')->setWidth(18);
 			$objPHPExcel->getActiveSheet()->getColumnDimension('O')->setWidth(18);
-			$objPHPExcel->getActiveSheet()->getColumnDimension('P')->setWidth(18);
-			$objPHPExcel->getActiveSheet()->getColumnDimension('Q')->setWidth(18);
-			$objPHPExcel->getActiveSheet()->getColumnDimension('R')->setWidth(18);
-			$objPHPExcel->getActiveSheet()->getColumnDimension('S')->setWidth(18);
-			$objPHPExcel->getActiveSheet()->getColumnDimension('T')->setWidth(18);
-			$objPHPExcel->getActiveSheet()->getColumnDimension('U')->setWidth(18);
-			$objPHPExcel->getActiveSheet()->getColumnDimension('V')->setWidth(18);
-			$objPHPExcel->getActiveSheet()->getColumnDimension('W')->setWidth(18);
-			$objPHPExcel->getActiveSheet()->getColumnDimension('X')->setWidth(18);
-			$objPHPExcel->getActiveSheet()->getColumnDimension('Y')->setWidth(18);
-			$objPHPExcel->getActiveSheet()->getColumnDimension('Z')->setWidth(18);
 
 			// Add conditional formatting
 			$objConditional1 = new PHPExcel_Style_Conditional();
@@ -159,10 +137,9 @@ class Reportes extends CI_Controller {
 							'B3:B7'
 						  );
 
-
 			// Set fonts			  
 			$objPHPExcel->getActiveSheet()->getStyle('A1')->getFont()->setBold(true);
-			$objPHPExcel->getActiveSheet()->getStyle('A2:AA2')->getFont()->setBold(true);
+			$objPHPExcel->getActiveSheet()->getStyle('A2:O2')->getFont()->setBold(true);
 
 			// Set header and footer. When no different headers for odd/even are used, odd header is assumed.
 			$objPHPExcel->getActiveSheet()->getHeaderFooter()->setOddHeader('&L&BPersonal cash register&RPrinted on &D');
@@ -185,8 +162,5 @@ class Reportes extends CI_Controller {
 
 			$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 			$objWriter->save('php://output');
-			  
-    }
-
-	
+    }	
 }

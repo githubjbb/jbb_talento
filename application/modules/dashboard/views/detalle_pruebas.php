@@ -102,7 +102,7 @@ $(function(){
                                 <th class='text-center'>Puntaje Estudios Adicionales</th>
                                 <th class='text-center'>Resultado Prueba Psicotécnica</th>
                                 <th class='text-center'>Resultado Entrevista</th>
-                                <th class='text-center'>Criterio Dif. Etnias</th>
+                                <th class='text-center'>Criterio Diferencial / Inclusión</th>
                                 <th class='text-center'>Criterio Dif. Desarrollo Objeto</th>
                                 <th class='text-center'>Puntaje TOTAL</th>
                                 <th class='text-center'>% TOTAL</th>

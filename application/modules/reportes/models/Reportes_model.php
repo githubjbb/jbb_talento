@@ -33,7 +33,7 @@
 		 * Consulta de candidatos
 		 * @since 19/3/2021
 		 */
-		public function get_candidatos_info($arrData)
+		/*public function get_candidatos_info($arrData)
 		{
 				$this->db->select("CONCAT(C.nombres, ' ', C.apellidos) nombres, C.numero_identificacion, C.edad, C.profesion, P.numero_proceso, D.dependencia, T.tipo_proceso, FHC.*, FAIC.*, CC.*");
 				$this->db->join('candidatos_puntajes X', 'X.fk_id_candidato_p  = C.id_candidato', 'LEFT');
@@ -67,9 +67,40 @@
 				} else {
 					return false;
 				}
+		}*/
+
+		public function get_candidatos_info($arrData)
+		{
+				$this->db->select();
+				$this->db->join('candidatos_puntajes X', 'X.fk_id_candidato_p  = C.id_candidato', 'LEFT');
+				$this->db->join('param_nivel_academico A', 'A.id_nivel_academico = C.fk_id_nivel_academico', 'INNER');
+				$this->db->join('proceso P', 'P.id_proceso = C.fk_id_proceso', 'INNER');
+				$this->db->join('param_dependencias PD', 'PD.id_dependencia = P.fk_id_dependencia', 'INNER');
+				$this->db->join('param_tipo_proceso T', 'T.id_tipo_proceso = P.fk_id_tipo_proceso', 'INNER');
+				$this->db->join('param_divipola D', 'D.mpio_divipola = C.fk_mpio_divipola', 'INNER');
+				if (array_key_exists("idCandidato", $arrData)) {
+					$this->db->where('C.id_candidato', $arrData["idCandidato"]);
+				}
+				if (array_key_exists("numeroIdentificacion", $arrData)) {
+					$this->db->where('C.numero_identificacion', $arrData["numeroIdentificacion"]);
+				}
+				if (array_key_exists("idProceso", $arrData)) {
+					$this->db->where('C.fk_id_proceso', $arrData["idProceso"]);
+				}
+				if (array_key_exists("estadoCandidato", $arrData)) {
+					$this->db->where('C.estado_candidato', $arrData["estadoCandidato"]);
+				}
+
+				$this->db->order_by('C.nombres, C.apellidos', 'asc');
+
+				$query = $this->db->get('candidatos C');
+
+				if ($query->num_rows() > 0) {
+					return $query->result_array();
+				} else {
+					return false;
+				}
 		}
-
-
 		
 		
 	    

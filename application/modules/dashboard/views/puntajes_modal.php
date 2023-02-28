@@ -67,15 +67,41 @@
 		</div>
 
 		<div class="row">
+			<div class="col-sm-12">
+				<div class="form-group text-left">
+					<label class="control-label" for="criterioEtnias">Criterio Diferencial / Inclusión: </label>
+				</div>
+			</div>
+
+			<div class="col-sm-3">
+				<div class="form-group text-left">
+					<label><input type="checkbox" id="cbox1" name="cbox1" class="criterio" <?php if(!empty($infoPuntajes) && $infoPuntajes[0]["etnias"] == 1) { ?> checked <?php } ?> <?php if(!empty($infoPuntajes) && $infoPuntajes[0]["na"] == 1) { ?> disabled <?php } ?>> Etnias</label>
+				</div>
+			</div>
+			<div class="col-sm-3">
+				<div class="form-group text-left">
+					<label><input type="checkbox" id="cbox2" name="cbox2" class="criterio" <?php if(!empty($infoPuntajes) && $infoPuntajes[0]["lgtbi"] == 1) { ?> checked <?php } ?> <?php if(!empty($infoPuntajes) && $infoPuntajes[0]["na"] == 1) { ?> disabled <?php } ?>> LGTBI</label>
+				</div>
+			</div>
+			<div class="col-sm-3">
+				<div class="form-group text-left">
+					<label><input type="checkbox" id="cbox3" name="cbox3" class="criterio" <?php if(!empty($infoPuntajes) && $infoPuntajes[0]["discapacidad"] == 1) { ?> checked <?php } ?> <?php if(!empty($infoPuntajes) && $infoPuntajes[0]["na"] == 1) { ?> disabled <?php } ?>> Discapacidad</label>
+				</div>
+			</div>
+			<div class="col-sm-3">
+				<div class="form-group text-left">
+					<label><input type="checkbox" id="cbox4" name="cbox4" class="criterio" <?php if(!empty($infoPuntajes) && $infoPuntajes[0]["na"] == 1) { ?> checked <?php } ?> <?php if(!empty($infoPuntajes) && ($infoPuntajes[0]["etnias"] == 1 || $infoPuntajes[0]["lgtbi"] == 1 || $infoPuntajes[0]["discapacidad"] == 1)) { ?> disabled <?php } ?>> N/A</label>
+				</div>
+			</div>
+
 			<div class="col-sm-6">
 				<div class="form-group text-left">
-					<label class="control-label" for="criterioEtnias">Criterio Dif. Etnias: </label>
-					<input type="number" max="10" id="criterioEtnias" name="criterioEtnias" class="form-control" value="<?php echo $infoPuntajes?$infoPuntajes[0]["criterio_etnias"]:""; ?>" placeholder="Criterio Dif. Etnias" >
+					<input type="number" max="10" id="criterioEtnias" name="criterioEtnias" class="form-control" value="<?php echo $infoPuntajes?$infoPuntajes[0]["criterio_etnias"]:""; ?>" placeholder="Criterio Diferencial / Inclusión" readOnly>
 				</div>
 			</div>
 			<div class="col-sm-6">
 				<div class="form-group text-left">
-						<small><br>
+						<small>
 							<p class="text-danger text-left">Hasta 10 por la escala máxima de afinidad.
 								<br>Puntaje sobre 10%
 							</p>

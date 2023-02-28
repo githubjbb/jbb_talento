@@ -267,6 +267,8 @@ class General_model extends CI_Model {
 				$this->db->join('candidatos_puntajes X', 'X.fk_id_candidato_p  = C.id_candidato', 'LEFT');
 				$this->db->join('param_nivel_academico A', 'A.id_nivel_academico = C.fk_id_nivel_academico', 'INNER');
 				$this->db->join('proceso P', 'P.id_proceso = C.fk_id_proceso', 'INNER');
+				$this->db->join('param_dependencias PD', 'PD.id_dependencia = P.fk_id_dependencia', 'INNER');
+				$this->db->join('param_tipo_proceso T', 'T.id_tipo_proceso = P.fk_id_tipo_proceso', 'INNER');
 				$this->db->join('param_divipola D', 'D.mpio_divipola = C.fk_mpio_divipola', 'INNER');
 				if (array_key_exists("idCandidato", $arrData)) {
 					$this->db->where('C.id_candidato', $arrData["idCandidato"]);
@@ -308,7 +310,7 @@ class General_model extends CI_Model {
 					$this->db->where('P.estado_proceso', $arrData["estadoProceso"]);
 				}
 
-				$this->db->order_by('P.numero_proceso', 'asc');
+				$this->db->order_by('P.fecha_registro_proceso', 'desc');
 
 				$query = $this->db->get('proceso P');
 
@@ -632,6 +634,7 @@ class General_model extends CI_Model {
 		public function get_puntaje($arrData)
 		{
 				$this->db->select();
+				$this->db->join('candidatos_puntajes_diferencial_inclusion C', 'C.fk_id_candidato = P.fk_id_candidato_p', 'LEFT');
 				if (array_key_exists('idPuntaje', $arrData)) {
 					$this->db->where('P.id_puntaje', $arrData['idPuntaje']);
 				}
@@ -651,7 +654,7 @@ class General_model extends CI_Model {
 		public function get_dpto_divipola() 
 		{
 				$this->db->select('DISTINCT(dpto_divipola), dpto_divipola_nombre');
-
+				$this->db->where('D.estado', 1);
 				$this->db->order_by('dpto_divipola_nombre', 'asc');
 				$query = $this->db->get('param_divipola D');
 

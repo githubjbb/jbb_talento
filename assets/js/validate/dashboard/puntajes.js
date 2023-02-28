@@ -1,4 +1,67 @@
 $( document ).ready( function () {
+
+	var valor = $('#criterioEtnias').val();
+
+	$('#cbox1').click(function(){
+		if ($('#cbox1').is(':checked') || $('#cbox2').is(':checked') || $('#cbox3').is(':checked')){
+	    	document.getElementById('cbox4').disabled = true;
+		} else {
+	    	document.getElementById('cbox4').disabled = false;
+		}
+		if ($('#cbox1').is(':checked')){
+			valor += 3;
+	    	$('#criterioEtnias').val(valor);
+		} else {
+			valor -= 3;
+	    	$('#criterioEtnias').val(valor);
+		}
+	});
+
+	$('#cbox2').click(function(){
+		if ($('#cbox1').is(':checked') || $('#cbox2').is(':checked') || $('#cbox3').is(':checked')){
+	    	document.getElementById('cbox4').disabled = true;
+		} else {
+	    	document.getElementById('cbox4').disabled = false;
+		}
+		if ($('#cbox2').is(':checked')){
+			valor += 3;
+	    	$('#criterioEtnias').val(valor);
+		} else {
+			valor -= 3;
+	    	$('#criterioEtnias').val(valor);
+		}
+	});
+
+	$('#cbox3').click(function(){
+		if ($('#cbox1').is(':checked') || $('#cbox2').is(':checked') || $('#cbox3').is(':checked')){
+	    	document.getElementById('cbox4').disabled = true;
+		} else {
+	    	document.getElementById('cbox4').disabled = false;
+		}
+		if ($('#cbox3').is(':checked')){
+			valor += 3;
+	    	$('#criterioEtnias').val(valor);
+		} else {
+			valor -= 3;
+	    	$('#criterioEtnias').val(valor);
+		}
+	});
+
+	$('#cbox4').click(function(){
+		if ($('#cbox4').is(':checked')){
+			valor += 1;
+	    	$('#criterioEtnias').val(valor);
+	    	document.getElementById('cbox1').disabled = true;
+	    	document.getElementById('cbox2').disabled = true;
+	    	document.getElementById('cbox3').disabled = true;
+		} else {
+			valor -= 1;
+	    	$('#criterioEtnias').val(valor);
+			document.getElementById('cbox1').disabled = false;
+			document.getElementById('cbox2').disabled = false;
+			document.getElementById('cbox3').disabled = false;
+		}
+	});
 	
 	$( "#form" ).validate( {
 		rules: {
@@ -29,7 +92,11 @@ $( document ).ready( function () {
 	$("#btnSubmit").click(function(){		
 	
 		if ($("#form").valid() == true){
-		
+
+			if($('input.criterio[type=checkbox]:checked').length == 0) {
+        		alert('Error : Asigne por lo menos una opci\u00F3n en Criterio Diferencial / Inclusión.');
+        	}
+			else {
 				//Activa icono guardando
 				$('#btnSubmit').attr('disabled','-1');
 				$("#div_error").css("display", "none");
@@ -78,7 +145,8 @@ $( document ).ready( function () {
 					}
 					
 		
-				});	
+				});
+			}
 		
 		}//if			
 	});
