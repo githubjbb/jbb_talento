@@ -1,6 +1,19 @@
 $( document ).ready( function () {
 
-	var valor = $('#criterioEtnias').val();
+	var valor;
+	var estudio;
+
+	if($('#hddcbox1').val() != "" && $('#hddcbox2').val() != "" && $('#hddcbox3').val() != "" && $('#hddcbox4').val() != "") {
+		valor = parseInt($('#criterioEtnias').val());
+	} else {
+		valor = 0;
+	}
+
+	if ($('#hddcbox5').val() != "" && $('#hddcbox6').val() != "" && $('#hddcbox7').val() != "" && $('#hddcbox8').val() != "") {
+		estudio = parseInt($('#puntajeEstudiosAdicionales').val());
+	} else {
+		estudio = 0;
+	}
 
 	$('#cbox1').click(function(){
 		if ($('#cbox1').is(':checked') || $('#cbox2').is(':checked') || $('#cbox3').is(':checked')){
@@ -9,10 +22,10 @@ $( document ).ready( function () {
 	    	document.getElementById('cbox4').disabled = false;
 		}
 		if ($('#cbox1').is(':checked')){
-			valor += 3;
+			valor = valor + 3;
 	    	$('#criterioEtnias').val(valor);
 		} else {
-			valor -= 3;
+			valor = valor - 3;
 	    	$('#criterioEtnias').val(valor);
 		}
 	});
@@ -24,10 +37,10 @@ $( document ).ready( function () {
 	    	document.getElementById('cbox4').disabled = false;
 		}
 		if ($('#cbox2').is(':checked')){
-			valor += 3;
+			valor = valor + 3;
 	    	$('#criterioEtnias').val(valor);
 		} else {
-			valor -= 3;
+			valor = valor - 3;
 	    	$('#criterioEtnias').val(valor);
 		}
 	});
@@ -39,27 +52,69 @@ $( document ).ready( function () {
 	    	document.getElementById('cbox4').disabled = false;
 		}
 		if ($('#cbox3').is(':checked')){
-			valor += 3;
+			valor = valor + 3;
 	    	$('#criterioEtnias').val(valor);
+	    	$('#hddCriterio').val(valor);
 		} else {
-			valor -= 3;
+			valor = valor - 3;
 	    	$('#criterioEtnias').val(valor);
+	    	$('#hddCriterio').val(valor);
 		}
 	});
 
 	$('#cbox4').click(function(){
 		if ($('#cbox4').is(':checked')){
-			valor += 1;
+			valor = valor + 1;
 	    	$('#criterioEtnias').val(valor);
 	    	document.getElementById('cbox1').disabled = true;
 	    	document.getElementById('cbox2').disabled = true;
 	    	document.getElementById('cbox3').disabled = true;
 		} else {
-			valor -= 1;
+			valor = valor - 1;
 	    	$('#criterioEtnias').val(valor);
 			document.getElementById('cbox1').disabled = false;
 			document.getElementById('cbox2').disabled = false;
 			document.getElementById('cbox3').disabled = false;
+		}
+	});
+
+	$('#cbox5').click(function(){
+		if ($('#cbox5').is(':checked')){
+			estudio = estudio + 1;
+	    	$('#puntajeEstudiosAdicionales').val(estudio);
+		} else {
+			estudio = estudio - 1;
+	    	$('#puntajeEstudiosAdicionales').val(estudio);
+		}
+	});
+
+	$('#cbox6').click(function(){
+		if ($('#cbox6').is(':checked')){
+			estudio = estudio + 2;
+	    	$('#puntajeEstudiosAdicionales').val(estudio);
+		} else {
+			estudio = estudio - 2;
+	    	$('#puntajeEstudiosAdicionales').val(estudio);
+		}
+	});
+
+	$('#cbox7').click(function(){
+		if ($('#cbox7').is(':checked')){
+			estudio = estudio + 3;
+	    	$('#puntajeEstudiosAdicionales').val(estudio);
+		} else {
+			estudio = estudio - 3;
+	    	$('#puntajeEstudiosAdicionales').val(estudio);
+		}
+	});
+
+	$('#cbox8').click(function(){
+		if ($('#cbox8').is(':checked')){
+			estudio = estudio + 4;
+	    	$('#puntajeEstudiosAdicionales').val(estudio);
+		} else {
+			estudio = estudio - 4;
+	    	$('#puntajeEstudiosAdicionales').val(estudio);
 		}
 	});
 	
@@ -93,7 +148,9 @@ $( document ).ready( function () {
 	
 		if ($("#form").valid() == true){
 
-			if($('input.criterio[type=checkbox]:checked').length == 0) {
+			if($('input.estudios[type=checkbox]:checked').length == 0) {
+        		alert('Error : Asigne por lo menos una opci\u00F3n en Puntaje Estudios Adicionales.');
+        	} else if($('input.criterio[type=checkbox]:checked').length == 0) {
         		alert('Error : Asigne por lo menos una opci\u00F3n en Criterio Diferencial / Inclusión.');
         	}
 			else {

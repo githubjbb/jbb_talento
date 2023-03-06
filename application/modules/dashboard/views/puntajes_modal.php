@@ -11,6 +11,14 @@
 	<form name="form" id="form" role="form" method="post" >
 		<input type="hidden" id="hddIdCandidato" name="hddIdCandidato" value="<?php echo $idCandidato; ?>"/>
 		<input type="hidden" id="hddIdPuntaje" name="hddIdPuntaje" value="<?php echo $infoPuntajes?$infoPuntajes[0]['id_puntaje']:""; ?>" />
+		<input type="hidden" id="hddcbox1" name="hddcbox1" value="<?php echo $infoPuntajes?$infoPuntajes[0]['etnias']:""; ?>" />
+		<input type="hidden" id="hddcbox2" name="hddcbox2" value="<?php echo $infoPuntajes?$infoPuntajes[0]['lgtbi']:""; ?>" />
+		<input type="hidden" id="hddcbox3" name="hddcbox3" value="<?php echo $infoPuntajes?$infoPuntajes[0]['discapacidad']:""; ?>" />
+		<input type="hidden" id="hddcbox4" name="hddcbox4" value="<?php echo $infoPuntajes?$infoPuntajes[0]['na']:""; ?>" />
+		<input type="hidden" id="hddcbox5" name="hddcbox5" value="<?php echo $infoPuntajes?$infoPuntajes[0]['universitario']:""; ?>" />
+		<input type="hidden" id="hddcbox6" name="hddcbox6" value="<?php echo $infoPuntajes?$infoPuntajes[0]['especializacion']:""; ?>" />
+		<input type="hidden" id="hddcbox7" name="hddcbox7" value="<?php echo $infoPuntajes?$infoPuntajes[0]['maestria']:""; ?>" />
+		<input type="hidden" id="hddcbox8" name="hddcbox8" value="<?php echo $infoPuntajes?$infoPuntajes[0]['doctorado']:""; ?>" />
 		<div class="row">
 			<div class="col-sm-6">
 				<div class="form-group text-left">
@@ -30,10 +38,36 @@
 		</div>
 
 		<div class="row">
-			<div class="col-sm-6">
+			<div class="col-sm-12">
 				<div class="form-group text-left">
 					<label class="control-label" for="puntajeEstudiosAdicionales">Puntaje Estudios Adicionales: </label>
-					<input type="number" max="10" id="puntajeEstudiosAdicionales" name="puntajeEstudiosAdicionales" class="form-control" value="<?php echo $infoPuntajes?$infoPuntajes[0]["puntaje_adicionales"]:""; ?>" placeholder="Puntaje Estudios Adicionales" >
+				</div>
+			</div>
+
+			<div class="col-sm-3">
+				<div class="form-group text-left">
+					<label><input type="checkbox" id="cbox5" name="cbox5" class="estudios" <?php if(!empty($infoPuntajes) && $infoPuntajes[0]["universitario"] == 1) { ?> checked <?php } ?>> Universitario</label>
+				</div>
+			</div>
+			<div class="col-sm-3">
+				<div class="form-group text-left">
+					<label><input type="checkbox" id="cbox6" name="cbox6" class="estudios" <?php if(!empty($infoPuntajes) && $infoPuntajes[0]["especializacion"] == 1) { ?> checked <?php } ?>> Especialización</label>
+				</div>
+			</div>
+			<div class="col-sm-3">
+				<div class="form-group text-left">
+					<label><input type="checkbox" id="cbox7" name="cbox7" class="estudios" <?php if(!empty($infoPuntajes) && $infoPuntajes[0]["maestria"] == 1) { ?> checked <?php } ?>> Maestría</label>
+				</div>
+			</div>
+			<div class="col-sm-3">
+				<div class="form-group text-left">
+					<label><input type="checkbox" id="cbox8" name="cbox8" class="estudios" <?php if(!empty($infoPuntajes) && $infoPuntajes[0]["doctorado"] == 1) { ?> checked <?php } ?>> Doctorado</label>
+				</div>
+			</div>
+
+			<div class="col-sm-6">
+				<div class="form-group text-left">
+					<input type="number" max="10" id="puntajeEstudiosAdicionales" name="puntajeEstudiosAdicionales" class="form-control" value="<?php echo $infoPuntajes?$infoPuntajes[0]["puntaje_adicionales"]:""; ?>" placeholder="Puntaje Estudios Adicionales" readOnly>
 				</div>
 			</div>
 			<div class="col-sm-6">

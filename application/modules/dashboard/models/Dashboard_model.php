@@ -84,7 +84,60 @@
 					);
 					$query2 = $this->db->insert('candidatos_puntajes_diferencial_inclusion', $data);
 					if ($query2) {
-						return true;
+						$this->deleteEstudios($id_candidato);
+						$universitario = $this->input->post('cbox5');
+						$especializacion = $this->input->post('cbox6');
+						$maestria = $this->input->post('cbox7');
+						$doctorado = $this->input->post('cbox8');
+						if (!empty($universitario)) {
+							if ($universitario == 'on') {
+								$cbox5 = 1;
+							} else {
+								$cbox5 = 0;
+							}
+						} else {
+							$cbox5 = 0;
+						}
+						if (!empty($especializacion)) {
+							if ($especializacion == 'on') {
+								$cbox6 = 1;
+							} else {
+								$cbox6 = 0;
+							}
+						} else {
+							$cbox6 = 0;
+						}
+						if (!empty($maestria)) {
+							if ($maestria == 'on') {
+								$cbox7 = 1;
+							} else {
+								$cbox7 = 0;
+							}
+						} else {
+							$cbox7 = 0;
+						}
+						if (!empty($doctorado)) {
+							if ($doctorado == 'on') {
+								$cbox8 = 1;
+							} else {
+								$cbox8 = 0;
+							}
+						} else {
+							$cbox8 = 0;
+						}
+						$data = array(
+							'fk_id_candidato' => $id_candidato,
+							'universitario' => $cbox5,
+							'especializacion' => $cbox6,
+							'maestria' => $cbox7,
+							'doctorado' => $cbox8
+						);
+						$query3 = $this->db->insert('candidatos_puntajes_estudios_adicionales', $data);
+						if ($query3) {
+							return true;
+						} else {
+							return false;
+						}
 					} else {
 						return false;
 					}
@@ -96,5 +149,10 @@
 		public function deleteCriterio($id_candidato) {
 			$this->db->where('fk_id_candidato', $id_candidato);
 			$query = $this->db->delete('candidatos_puntajes_diferencial_inclusion');
+		}
+
+		public function deleteEstudios($id_candidato) {
+			$this->db->where('fk_id_candidato', $id_candidato);
+			$query = $this->db->delete('candidatos_puntajes_estudios_adicionales');
 		}
 	}

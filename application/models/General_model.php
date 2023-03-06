@@ -635,6 +635,7 @@ class General_model extends CI_Model {
 		{
 				$this->db->select();
 				$this->db->join('candidatos_puntajes_diferencial_inclusion C', 'C.fk_id_candidato = P.fk_id_candidato_p', 'LEFT');
+				$this->db->join('candidatos_puntajes_estudios_adicionales E', 'E.fk_id_candidato = P.fk_id_candidato_p', 'LEFT');
 				if (array_key_exists('idPuntaje', $arrData)) {
 					$this->db->where('P.id_puntaje', $arrData['idPuntaje']);
 				}
