@@ -39,12 +39,13 @@
     }else{
 ?>                      
 
-                    <table width="100%" class="table table-hover" id="dataTables">
+                    <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables">
                         <thead>
                             <tr>
                                 <th class='text-center'>Número Proceso</th>
                                 <th>Tipo Proceso</th>
                                 <th>Dependencia</th>
+                                <th>Fecha Registro</th>
                                 <th class='text-center'>Candidatos</th>
                             </tr>
                         </thead>
@@ -56,6 +57,7 @@
                                 echo '<td class="text-center">' . $lista['numero_proceso'] . '</td>';
                                 echo '<td>' . $lista['tipo_proceso'] . '</td>';
                                 echo '<td>' . $lista['dependencia'] . '</td>';
+                                echo '<td>' . $lista['fecha_registro_proceso'] . '</td>';
                                 echo '<td class="text-center">';
                         ?>
                                 <a href="<?php echo base_url("dashboard/detalle/" . $lista['id_proceso']); ?>" class="btn btn-success">Ver Puntajes Candidatos <span class="glyphicon glyphicon-lock" aria-hidden="true"></a>
@@ -81,10 +83,7 @@
 $(document).ready(function() {
     $('#dataTables').DataTable({
         responsive: true,
-         "ordering": false,
-         paging: false,
-        "searching": false,
-        "info": false
+        "pageLength": 100
     });
 });
 </script>

@@ -6,7 +6,7 @@
 		<div class="col-lg-12">
 			<div class="panel panel-success">
 				<div class="panel-heading">
-					<a class="btn btn-success btn-xs" href=" <?php echo base_url('dashboard/admin'); ?> "><span class="glyphicon glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Dashboard </a> 
+					<a class="btn btn-success btn-xs" href=" <?php echo base_url('dashboard/detalle/' . $infoFormulario[0]['fk_id_proceso']); ?> "><span class="glyphicon glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Dashboard </a> 
 					<i class="fa fa-list-ul"></i> <strong>RESPUESTAS CUESTIONARIO ASPECTOS DE INTERES PARA EL DESEMPEÑO LABORAL</strong>
 				</div>
 				<div class="panel-body">
